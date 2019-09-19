@@ -1,3 +1,15 @@
+@import "../common/variables.scss";
+
+// Obraz <a href="https://pixabay.com/pl/users/Alanyadk-1919646/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1396645"> Alanyadk</a> z <a href="https://pixabay.com/pl/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1396645"> Pixabay</a>
+.nav-wrapper {
+  div > div > .navbar-nav .nav-item {
+    margin: 0 1rem;
+    .nav-link {
+      letter-spacing: 1px;
+    }
+  }
+}
+
 :host ::ng-deep #basic-link-dropdown {
   left: auto !important;
   margin: 0;

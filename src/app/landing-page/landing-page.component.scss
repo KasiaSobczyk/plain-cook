@@ -1,0 +1,39 @@
+@import "../common/variables.scss";
+
+// .home-row {
+//   background: $color__deepskyblue;
+//   background: linear-gradient(to bottom, $color__aquamarine, $color__primary);
+//   height: 100vh;
+// }
+
+
+// TO DO: animacje i przejście
+
+
+.home-row .home-col {
+  h1,
+  p {
+    color: #fff;
+    font-family: $sourceSans__font;
+  }
+
+  p {
+    opacity: 0.6;
+    text-align: justify;
+    font-size: 16px;
+  }
+
+  .btn-discover {
+    padding: 9px 26px;
+    font-size: 13px;
+    background-color: $color__yellow;
+  }
+}
+
+.item {
+  max-height: 400px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  transition: 5s 0.5 ease-in;
+}

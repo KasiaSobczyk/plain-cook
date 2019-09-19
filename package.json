@@ -7,7 +7,11 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "compile:server": "webpack --config webpack.server.config.js --progress --colors",
+    "serve:ssr": "node dist/server",
+    "build:ssr": "npm run build:client-and-server-bundles && npm run compile:server",
+    "build:client-and-server-bundles": "ng build --prod && ng run plain-cook:server:production --bundleDependencies all"
   },
   "private": true,
   "dependencies": {
@@ -18,9 +22,15 @@
     "@angular/forms": "~8.2.0",
     "@angular/platform-browser": "~8.2.0",
     "@angular/platform-browser-dynamic": "~8.2.0",
+    "@angular/platform-server": "~8.2.0",
     "@angular/router": "~8.2.0",
+    "@ngrx/effects": "^8.3.0",
+    "@ngrx/router-store": "^8.3.0",
     "@ngrx/store": "^8.2.0",
+    "@nguniversal/express-engine": "^8.1.1",
+    "@nguniversal/module-map-ngfactory-loader": "^8.1.1",
     "bootstrap": "^4.3.1",
+    "express": "^4.15.2",
     "ngx-bootstrap": "^5.1.1",
     "rxjs": "~6.4.0",
     "rxjs-compat": "^6.5.2",
@@ -32,9 +42,10 @@
     "@angular/cli": "~8.2.2",
     "@angular/compiler-cli": "~8.2.0",
     "@angular/language-service": "~8.2.0",
-    "@types/node": "~8.9.4",
+    "@ngrx/store-devtools": "^8.3.0",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
@@ -44,8 +55,18 @@
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
     "protractor": "~5.4.0",
+    "ts-loader": "^5.2.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.5.3"
+    "typescript": "~3.5.3",
+    "webpack-cli": "^3.1.0"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 100,
+    "semi": true,
+    "bracketSpacing": true,
+    "arrowParens": "always",
+    "parser": "typescript"
   }
 }

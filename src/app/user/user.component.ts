@@ -1,22 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthService, ResponsePayload } from './auth.service';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../store/app.reducer';
+import * as AuthActions from './store/auth.actions';
+
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
   loginMode = true;
   isLoading = false;
   error: string = null;
+  storeSub: Subscription;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
+    this.storeSub = this.store.select('auth').subscribe(authState => {
+      this.isLoading = authState.loading;
+      this.error = authState.authError;
+    });
   }
 
   onSwitchMode() {
@@ -31,26 +38,20 @@ export class UserComponent implements OnInit {
     const email = form.value.email;
     const password = form.value.password;
 
-    let authObs: Observable<ResponsePayload>;
-
     this.isLoading = true;
     if (this.loginMode) {
-      authObs = this.authService.login(email, password);
+      this.store.dispatch(new AuthActions.LoginStart({ email, password }));
     } else {
-      authObs = this.authService.signup(email, password);
+      this.store.dispatch(new AuthActions.SignupStart({ email, password }));
     }
     form.reset();
-
-    authObs.subscribe(res => {
-      this.isLoading = false;
-      this.router.navigate(['/recipes']);
-    }, err => {
-      this.error = err;
-      this.isLoading = false;
-    });
   }
 
   onCloseAlert() {
-    this.error = null;
+    this.store.dispatch( new AuthActions.ErrorHandle());
+  }
+
+  ngOnDestroy() {
+    this.storeSub.unsubscribe();
   }
 }

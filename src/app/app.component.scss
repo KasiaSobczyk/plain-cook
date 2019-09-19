@@ -1,1 +1,17 @@
+@import './common/variables.scss';
 
+.bg-gradient {
+  background: $color__deepskyblue;
+  background: linear-gradient(to bottom, $color__aquamarine, $color__primary);
+  height: 100vh;
+  overflow-x: hidden;
+
+  header {
+     font-family: $playfair__font;
+  }
+
+  section {
+    margin-top: 3rem;
+    font-family: $sourceSans__font;
+  }
+}

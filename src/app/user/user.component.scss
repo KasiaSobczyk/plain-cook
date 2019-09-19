@@ -1,0 +1,39 @@
+@import "../common/variables.scss";
+
+.card {
+  border: none;
+
+  .card-body {
+    width: 20rem;
+
+    form {
+      label {
+        color: $color__deepskyblue;
+        margin: 1rem 0 0;
+      }
+
+      input {
+        border: none;
+        border-bottom: 1px solid $color__aquamarine;
+        border-radius: 0%;
+        padding-top: 0;
+      }
+
+      input:focus, input.ng-dirty, input.ng-valid, input.ng-touched {
+        outline: 0;
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        background-color: transparent;
+      }
+
+      .buttons {
+        margin-top: 3rem;
+        justify-content: space-evenly;
+        display: flex;
+
+        .btn-color {
+          background-color: $color__primary;
+        }
+      }
+    }
+  }
+}

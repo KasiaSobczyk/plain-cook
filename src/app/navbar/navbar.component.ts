@@ -1,7 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { StorageDataService } from '../common/storage-data.service';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../user/auth.service';
+import { map } from 'rxjs/operators';
+
+import * as fromApp from '../store/app.reducer';
+import * as AuthActions from '../user/store/auth.actions';
+import * as RecipesAction from '../recipes/store/recipes.actions';
 
 @Component({
   selector: 'app-navbar',
@@ -13,24 +17,24 @@ export class NavbarComponent implements OnInit, OnDestroy {
   collapsed = true;
   private userSub: Subscription;
 
-  constructor(private storageService: StorageDataService, private authService: AuthService) { }
+  constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
-    this.userSub = this.authService.user.subscribe(userExist => {
+    this.userSub = this.store.select('auth').pipe(map(authState => authState.user)).subscribe(userExist => {
       this.isAuth = !!userExist;
     });
   }
 
   onStoreRecipes() {
-    this.storageService.storeData();
+    this.store.dispatch( new RecipesAction.StoreData());
   }
 
   onFetchData() {
-    this.storageService.fetchData().subscribe();
+    this.store.dispatch(new RecipesAction.FetchRecipes());
   }
 
   onLogout() {
-    this.authService.logout();
+    this.store.dispatch( new AuthActions.Logout());
   }
 
   ngOnDestroy() {

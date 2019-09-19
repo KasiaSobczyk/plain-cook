@@ -1,0 +1,24 @@
+<div class="row text-center home-row pt-3">
+  <div class="col-md-6 col-xs-12 home-col">
+    <h1>HELLO</h1>
+    <p class="mt-4">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui dolore repellendus inventore fugiat culpa amet
+      doloremque tenetur reprehenderit ratione. Distinctio quod impedit odit doloremque est fuga sapiente, minus hic
+      quidem.
+    </p>
+    <button class="btn btn-primary btn-discovover">Discover new recipes</button>
+  </div>
+  <div class="col-md-6 col-xs-12">
+    <!-- <img src="../../assets/images/burger.png" alt="logo" width="300px"> -->
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item item" *ngFor="let item of displayImg" appCarousel>
+          <img class="d-block w-100 slide" src="{{item.src}}" alt={{item.id}} style="max-height: 400px">
+        </div>
+      <!-- <div class="carousel-item item active" appCarousel>
+        <img class="d-block w-100 slide" src="../../assets/images/pasta.png" style="max-height: 400px">
+      </div> -->
+      </div>
+    </div>
+  </div>
+</div>

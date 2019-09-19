@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from './user/auth.service';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Store } from '@ngrx/store';
+
+import * as fromApp from './store/app.reducer';
+import * as AuthActions from './user/store/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +14,11 @@ export class AppComponent implements OnInit {
   public title = 'plain-cook';
   public loadedFeature = 'recipe';
 
-  constructor(private authService: AuthService) {}
+  constructor(private store: Store<fromApp.AppState>, @Inject(PLATFORM_ID) private platformId) { }
 
   ngOnInit() {
-    this.authService.autoLogin();
+    if (isPlatformBrowser(this.platformId)) {
+      this.store.dispatch(new AuthActions.AutoLogin());
+    }
   }
 }
